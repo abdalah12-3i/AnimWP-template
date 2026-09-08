@@ -142,3 +142,53 @@ function soulreapers_anime_taxonomy() {
     ));
 }
 add_action('init', 'soulreapers_anime_taxonomy');
+// إضافة حقول السيرفرات مباشرة داخل صفحة إضافة الحلقة لتسهيل النشر
+function soulreapers_add_servers_metabox() {
+    add_meta_box(
+        'soulreapers_servers',
+        'لوحة روابط وسيرفرات المشاهدة',
+        'soulreapers_servers_callback',
+        'animwp_capitulos',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'soulreapers_add_servers_metabox');
+
+function soulreapers_servers_callback($post) {
+    wp_nonce_field('save_servers_data', 'servers_nonce');
+    $servers = get_post_meta($post->ID, 'servidores', true);
+    if (!is_array($servers)) $servers = array();
+    
+    $server_names = array(
+        'سيرفر مباشر (Drive / Okru)' => 'servidor_1',
+        'سيرفر 2 (Mega)'            => 'servidor_2',
+        'سيرفر 3 (VidBom)'          => 'servidor_3',
+        'سيرفر 4 (DoodStream)'      => 'servidor_4',
+    );
+    ?>
+    <div style="direction: rtl; text-align: right; padding: 10px;">
+        <p style="color: #666; margin-bottom: 15px;">ضع روابط التضمين (Embed URL) لكل سيرفر:</p>
+        <?php foreach($server_names as $label => $key): 
+            $val = isset($servers[$key]) ? $servers[$key] : '';
+        ?>
+            <div style="margin-bottom: 12px;">
+                <label style="display:block; font-weight: bold; margin-bottom: 4px;"><?php echo $label; ?>:</label>
+                <input type="text" name="servidores[<?php echo $key; ?>]" value="<?php echo esc_attr($val); ?>" style="width: 100%; max-width: 650px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" placeholder="https://...">
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php
+}
+
+// حفظ بيانات السيرفرات
+function soulreapers_save_servers($post_id) {
+    if (!isset($_POST['servers_nonce']) || !wp_verify_nonce($_POST['servers_nonce'], 'save_servers_data')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    if (isset($_POST['servidores'])) {
+        update_post_meta($post_id, 'servidores', $_POST['servidores']);
+    }
+}
+add_action('save_post', 'soulreapers_save_servers');
