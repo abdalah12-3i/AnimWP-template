@@ -639,3 +639,171 @@ hr { border: none; border-top: 1px solid var(--gris-claro); margin: 2rem 0; }
     color: var(--texto-secundario);
     font-size: 1.3rem;
 }
+/* ==========================================
+   أزرار وقائمة العضو في الهيدر
+========================================== */
+.btn-login-nav {
+    background: transparent;
+    border: 1px solid var(--Primario);
+    color: var(--Primario) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.btn-login-nav:hover {
+    background: var(--Primario);
+    color: #fff !important;
+}
+
+.user-nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.btn-user-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #eee !important;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.nav-avatar img {
+    border-radius: 50%;
+    border: 2px solid var(--Primario);
+}
+.user-nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    min-width: 14rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    z-index: 100;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+.user-nav-dropdown:hover .user-nav-menu { display: block; }
+.user-nav-menu a {
+    display: block;
+    padding: 1rem 1.4rem;
+    color: #eee;
+    font-size: 1.3rem;
+    border-bottom: 1px solid var(--gris-claro);
+    text-align: right;
+}
+.user-nav-menu a:hover { background: var(--Primario); color: #fff; }
+
+/* ==========================================
+   صفحة الدخول والتسجيل (Auth)
+========================================== */
+.sr-auth-box {
+    max-width: 45rem;
+    margin: 6rem auto;
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    border-radius: 1rem;
+    padding: 3rem;
+}
+.sr-auth-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--gris-claro);
+    margin-bottom: 2.5rem;
+}
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--fuente-principal);
+    border-bottom: 2px solid transparent;
+}
+.tab-btn.active {
+    color: var(--Primario);
+    border-color: var(--Primario);
+}
+.auth-form { display: none; }
+.auth-form.active { display: block; }
+.remember-row label {
+    font-size: 1.3rem;
+    color: #aaa;
+    cursor: pointer;
+}
+
+/* ==========================================
+   صفحة البروفايل
+========================================== */
+.sr-profile-wrapper {
+    max-width: 75rem;
+    margin: 4rem auto;
+}
+.sr-profile-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+}
+.profile-avatar img {
+    border-radius: 50%;
+    border: 3px solid var(--Primario);
+}
+.profile-info { flex: 1; }
+.profile-info h2 { margin: 0 0 0.5rem 0; font-size: 2.4rem; }
+.user-role-badge {
+    background: var(--Primario);
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.user-email { color: #888; font-size: 1.3rem; margin-top: 0.8rem; }
+.profile-stats {
+    display: flex;
+    gap: 2rem;
+}
+.stat-box {
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-claro);
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    text-align: center;
+}
+.stat-box .num { display: block; font-size: 2.4rem; font-weight: 900; color: var(--Primario); }
+.stat-box .lbl { font-size: 1.2rem; color: #aaa; }
+
+.profile-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+.btn-action-pub {
+    background: var(--gris-claro);
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 0.6rem;
+    font-weight: 700;
+}
+.btn-action-pub:hover { background: var(--Primario); }
+.btn-action-logout {
+    background: #c0392b;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 0.6rem;
+    font-weight: 700;
+    margin-right: auto;
+}
