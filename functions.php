@@ -1,15 +1,13 @@
 <?php
 /**
  * Theme Name: Soul Reapers - النقابة
- * Description: قالب مخصص لموقع الأنمي والترجمة Soul Reapers Guild
+ * الهوية: نقابة حاصد الأرواح (بنفسجي وأزرق متوهج)
  */
 
-// 1. تضمين الودجات
 if (file_exists(get_template_directory() . '/include/widgets.php')) {
     require get_template_directory() . '/include/widgets.php';
 }
 
-// 2. إعدادات القالب الأساسية
 function soulreapers_setup() {
     add_theme_support('post-thumbnails');
     add_theme_support('title-tag');
@@ -17,104 +15,70 @@ function soulreapers_setup() {
 }
 add_action('after_setup_theme', 'soulreapers_setup');
 
-// 3. تسجيل القوائم
 function soulreapers_menus() {
     register_nav_menus(array(
-        'main-menu' => __('القائمة الرئيسية (Main Menu)', 'soulreapers')
+        'main-menu' => __('القائمة الرئيسية', 'soulreapers')
     ));
 }
 add_action('init', 'soulreapers_menus');
 
-// 4. تضمين الملفات والمكتبات
 function soulreapers_scripts() {
     wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css', array(), '10.1.0');
     wp_enqueue_style('normalize', 'https://necolas.github.io/normalize.css/8.0.1/normalize.css', array(), '8.0.1');
-    wp_enqueue_style('soulreapers-style', get_stylesheet_uri(), array('normalize'), '1.0.0');
+    wp_enqueue_style('soulreapers-style', get_stylesheet_uri(), array('normalize'), '2.1.0');
 
     wp_enqueue_script('jquery');
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', array(), '10.1.0', true);
-    wp_enqueue_script('soulreapers-script', get_template_directory_uri() . '/js/script.js', array('jquery', 'swiper-js'), '1.0.0', true);
+    wp_enqueue_script('soulreapers-script', get_template_directory_uri() . '/js/script.js', array('jquery', 'swiper-js'), '2.1.0', true);
 }
 add_action('wp_enqueue_scripts', 'soulreapers_scripts');
 
-// 5. تسجيل الشريط الجانبي (Sidebar)
 function soulreapers_widgets() {
     register_sidebar(array(
-        'name'          => 'الشريط الجانبي (Sidebar)',
+        'name'          => 'الشريط الجانبي',
         'id'            => 'sidebar_1',
         'before_widget' => '<div class="widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title text-center">',
+        'before_title'  => '<h3 class="widget-title">',
         'after_title'   => '</h3>'
     ));
 }
 add_action('widgets_init', 'soulreapers_widgets');
 
-// 6. تسجيل نوع المنشور: الأعمال والأنميات
-function soulreapers_register_series() {
-    $labels = array(
-        'name'               => 'الأنميات والأعمال',
-        'singular_name'      => 'أنمي',
-        'menu_name'          => 'قائمة الأنمي',
-        'add_new'            => 'إضافة عمل جديد',
-        'add_new_item'       => 'إضافة أنمي جديد',
-        'edit_item'          => 'تعديل الأنمي',
-        'all_items'          => 'جميع الأنميات',
-    );
+// تسجيل المنشورات: الأعمال والحلقات
+function soulreapers_register_cpts() {
     register_post_type('animwp_serie', array(
-        'labels'             => $labels,
-        'public'             => true,
-        'has_archive'        => true,
-        'menu_icon'          => 'dashicons-video-alt3',
-        'supports'           => array('title', 'editor', 'thumbnail', 'custom-fields'),
-        'rewrite'            => array('slug' => 'series'),
-        'show_in_rest'       => true,
+        'labels'        => array('name' => 'الأعمال والأنميات', 'singular_name' => 'أنمي'),
+        'public'        => true,
+        'has_archive'   => true,
+        'menu_icon'     => 'dashicons-video-alt3',
+        'supports'      => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'rewrite'       => array('slug' => 'series'),
     ));
-}
-add_action('init', 'soulreapers_register_series');
 
-// 7. تسجيل نوع المنشور: الحلقات
-function soulreapers_register_episodes() {
-    $labels = array(
-        'name'               => 'الحلقات',
-        'singular_name'      => 'حلقة',
-        'menu_name'          => 'الحلقات',
-        'add_new'            => 'إضافة حلقة جديدة',
-        'add_new_item'       => 'إضافة حلقة جديدة',
-        'edit_item'          => 'تعديل الحلقة',
-        'all_items'          => 'جميع الحلقات',
-    );
     register_post_type('animwp_capitulos', array(
-        'labels'             => $labels,
-        'public'             => true,
-        'has_archive'        => true,
-        'menu_icon'          => 'dashicons-media-video',
-        'supports'           => array('title', 'editor', 'thumbnail', 'custom-fields'),
-        'rewrite'            => array('slug' => 'episodes'),
-        'show_in_rest'       => true,
+        'labels'        => array('name' => 'الحلقات', 'singular_name' => 'حلقة'),
+        'public'        => true,
+        'has_archive'   => true,
+        'menu_icon'     => 'dashicons-media-video',
+        'supports'      => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'rewrite'       => array('slug' => 'episodes'),
     ));
 }
-add_action('init', 'soulreapers_register_episodes');
+add_action('init', 'soulreapers_register_cpts');
 
-// 8. تسجيل تصنيف الأنمي
+// تصنيف الأنمي
 function soulreapers_anime_taxonomy() {
     register_taxonomy('anime', array('animwp_capitulos', 'animwp_serie'), array(
-        'hierarchical'      => true,
-        'labels'            => array(
-            'name'          => 'اسم الأنمي',
-            'singular_name' => 'الأنمي',
-            'menu_name'     => 'تصنيف الأنميات',
-        ),
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'query_var'         => true,
-        'rewrite'           => array('slug' => 'anime'),
-        'show_in_rest'      => true,
+        'hierarchical' => true,
+        'labels'       => array('name' => 'تصنيف الأنمي'),
+        'show_ui'      => true,
+        'rewrite'      => array('slug' => 'anime'),
     ));
 }
 add_action('init', 'soulreapers_anime_taxonomy');
 
-// 9. تسجيل رتبة "ناشر النقابة" وصلاحية النشر
+// رتبة ناشر النقابة
 function soulreapers_register_publisher_role() {
     add_role('guild_publisher', 'ناشر النقابة', array(
         'read'                  => true,
@@ -122,7 +86,6 @@ function soulreapers_register_publisher_role() {
         'upload_files'          => true,
         'publish_guild_content' => true,
     ));
-
     $admin = get_role('administrator');
     if ($admin && !$admin->has_cap('publish_guild_content')) {
         $admin->add_cap('publish_guild_content');
@@ -130,7 +93,43 @@ function soulreapers_register_publisher_role() {
 }
 add_action('init', 'soulreapers_register_publisher_role');
 
-// فحص صلاحية النشر للمستخدم الحالي
 function sr_can_user_publish() {
     return is_user_logged_in() && (current_user_can('publish_guild_content') || current_user_can('administrator'));
 }
+
+// 1. حصر البحث في الأنميات والحلقات فقط (منع ظهور Sample Page وملفات الـ zip)
+function sr_filter_search_queries($query) {
+    if (!is_admin() && $query->is_main_query() && $query->is_search()) {
+        $query->set('post_type', array('animwp_serie', 'animwp_capitulos'));
+        $query->set('post_status', 'publish');
+    }
+}
+add_action('pre_get_posts', 'sr_filter_search_queries');
+
+// 2. إنشاء الصفحات الأربع المطلوبة تلقائياً عند تفعيل القالب
+function sr_auto_create_theme_pages() {
+    $pages = array(
+        'profile'     => array('title' => 'الملف الشخصي', 'template' => 'template-profile.php'),
+        'login'       => array('title' => 'تسجيل الدخول', 'template' => 'template-auth.php'),
+        'add-episode' => array('title' => 'نشر حلقة',    'template' => 'template-add-episode.php'),
+        'add-anime'   => array('title' => 'إضافة عمل',   'template' => 'template-add-anime.php'),
+    );
+
+    foreach ($pages as $slug => $data) {
+        $existing = get_page_by_path($slug);
+        if (!$existing) {
+            $page_id = wp_insert_post(array(
+                'post_title'   => $data['title'],
+                'post_name'    => $slug,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_author'  => 1
+            ));
+            if ($page_id && !is_wp_error($page_id)) {
+                update_post_meta($page_id, '_wp_page_template', $data['template']);
+            }
+        }
+    }
+}
+add_action('after_switch_theme', 'sr_auto_create_theme_pages');
+add_action('init', 'sr_auto_create_theme_pages'); // تشغيل فوري للتأكد
