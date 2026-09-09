@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title('|', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 
-    <!-- خطوط جوجل المعتمدة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Changa:wght@700;900&family=Cairo:wght@400;600;700;900&family=Montserrat:wght@800&display=swap" rel="stylesheet">
@@ -18,7 +17,7 @@
     <header class="site-navbar">
         <div class="contenedor navegacion">
             
-            <!-- لوغو النقابة الناري -->
+            <!-- لوغو النقابة بالهوية البنفسجية وتوهج الروح الأزرق -->
             <div class="logo">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo" title="<?php bloginfo('name'); ?>">
                     <span class="logo-ar">النّقـابـة</span>
@@ -26,7 +25,7 @@
                 </a>
             </div>
 
-            <!-- شريط البحث السريع عن الأنميات -->
+            <!-- شريط البحث المخصص للأنمي -->
             <div class="header-search">
                 <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
                     <input type="search" class="search-field" placeholder="ابحث عن أنمي أو حلقة..." value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" />
@@ -34,7 +33,7 @@
                 </form>
             </div>
 
-            <!-- القائمة وزر النشر وحساب العضو -->
+            <!-- القوائم وأزرار النشر والحساب -->
             <div class="enlaces">
                 <?php
                     wp_nav_menu(array(
@@ -45,13 +44,13 @@
                     ));
                 ?>
 
-                <!-- قائمة النشر المنسدلة للناشرين فقط -->
+                <!-- زر وقائمة النشر للناشرين -->
                 <?php if (sr_can_user_publish()): ?>
-                    <div class="publish-dropdown">
-                        <button type="button" class="btn-publish-trigger">
+                    <div class="dropdown-wrapper publish-dropdown">
+                        <button type="button" class="btn-action-trigger btn-publish">
                             <span>نشر ▾</span>
                         </button>
-                        <div class="publish-menu">
+                        <div class="dropdown-content">
                             <a href="<?php echo esc_url(home_url('/add-episode/')); ?>">
                                 🎬 نشر حلقة جديدة
                             </a>
@@ -62,16 +61,16 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- حساب العضو (بروفايل / تسجيل دخول) -->
+                <!-- زر وحساب العضو -->
                 <?php if (is_user_logged_in()): 
                     $current_user = wp_get_current_user();
                 ?>
-                    <div class="user-nav-dropdown">
-                        <a href="<?php echo esc_url(home_url('/profile/')); ?>" class="btn-user-trigger">
-                            <span class="nav-avatar"><?php echo get_avatar($current_user->ID, 32); ?></span>
+                    <div class="dropdown-wrapper user-nav-dropdown">
+                        <button type="button" class="btn-action-trigger btn-user">
+                            <span class="nav-avatar"><?php echo get_avatar($current_user->ID, 30); ?></span>
                             <span class="nav-username"><?php echo esc_html($current_user->display_name); ?> ▾</span>
-                        </a>
-                        <div class="user-nav-menu">
+                        </button>
+                        <div class="dropdown-content">
                             <a href="<?php echo esc_url(home_url('/profile/')); ?>">👤 بروفايلي</a>
                             <?php if (sr_can_user_publish()): ?>
                                 <a href="<?php echo esc_url(home_url('/add-episode/')); ?>">🎬 رفع حلقة</a>
@@ -129,73 +128,8 @@
             ?>
         </div>
 
-        <!-- أسهم تحريك السلايدر والنقاط -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
     </section>
     <?php endif; ?>
-/* شريط البحث في الهيدر */
-.header-search {
-    flex: 1;
-    max-width: 32rem;
-    margin: 0 1.5rem;
-}
-.header-search .search-form {
-    display: flex;
-    align-items: center;
-    background: #191b1f;
-    border: 1px solid var(--gris-claro);
-    border-radius: 2rem;
-    padding: 0.2rem 1.2rem;
-    transition: 0.2s;
-}
-.header-search .search-form:focus-within {
-    border-color: var(--Primario);
-    box-shadow: 0 0 8px rgba(255, 75, 43, 0.3);
-}
-.header-search .search-field {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-size: 1.3rem;
-    width: 100%;
-    padding: 0.6rem 0.5rem;
-    font-family: var(--fuente-principal);
-}
-.header-search .search-submit {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.4rem;
-    padding: 0;
-}
-
-/* شارة السلايدر وأسهم التنقل */
-.slide-badge {
-    background: var(--Primario);
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: 0.2rem 0.8rem;
-    border-radius: 0.4rem;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-.swiper-button-next, .swiper-button-prev {
-    color: var(--Primario) !important;
-    background: rgba(0,0,0,0.6);
-    width: 4rem !important;
-    height: 4rem !important;
-    border-radius: 50%;
-}
-.swiper-button-next:after, .swiper-button-prev:after {
-    font-size: 1.8rem !important;
-}
-.swiper-pagination-bullet-active {
-    background: var(--Primario) !important;
-}
-.logout-item {
-    color: #e74c3c !important;
-}
