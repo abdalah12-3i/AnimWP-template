@@ -129,6 +129,30 @@ function sr_auto_create_theme_pages() {
                 update_post_meta($page_id, '_wp_page_template', $data['template']);
             }
         }
+        // استخدام الصورة المرفوعة من العضو بدلاً من جرافاتار الافتراضي
+function sr_custom_user_avatar($avatar, $id_or_email, $size, $default, $alt) {
+    $user_id = 0;
+    if (is_numeric($id_or_email)) {
+        $user_id = (int) $id_or_email;
+    } elseif (is_object($id_or_email) && !empty($id_or_email->user_id)) {
+        $user_id = (int) $id_or_email->user_id;
+    } elseif (is_string($id_or_email)) {
+        $user = get_user_by('email', $id_or_email);
+        if ($user) $user_id = $user->ID;
+    }
+
+    if ($user_id > 0) {
+        $custom_avatar_id = get_user_meta($user_id, 'sr_custom_avatar', true);
+        if ($custom_avatar_id) {
+            $img_url = wp_get_attachment_image_url($custom_avatar_id, array($size, $size));
+            if ($img_url) {
+                $avatar = "<img alt='{$alt}' src='{$img_url}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' style='border-radius: 50%; object-fit: cover; border: 2px solid var(--Aura-Blue);' />";
+            }
+        }
+    }
+    return $avatar;
+}
+add_filter('get_avatar', 'sr_custom_user_avatar', 10, 5);
     }
 }
 add_action('after_switch_theme', 'sr_auto_create_theme_pages');
