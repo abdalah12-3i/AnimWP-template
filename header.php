@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title('|', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 
-    <!-- خطوط جوجل العربية (Changa & Cairo) وخط الشعار الإنجليزي -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Changa:wght@700;900&family=Cairo:wght@400;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
@@ -15,11 +14,10 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-    <!-- شريط التنقل العلوي -->
     <header class="site-navbar">
         <div class="contenedor navegacion">
             
-            <!-- لوغو النقابة بالستايل الناري -->
+            <!-- لوغو النقابة الناري -->
             <div class="logo">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo" title="<?php bloginfo('name'); ?>">
                     <span class="logo-ar">النّقـابـة</span>
@@ -27,37 +25,50 @@
                 </a>
             </div>
 
-            <!-- القائمة الرئيسية -->
+            <!-- القائمة وزر النشر -->
             <div class="enlaces">
                 <?php
-                    $args = array(
+                    wp_nav_menu(array(
                         'theme_location' => 'main-menu',
                         'container'      => 'nav',
                         'container_class'=> 'menu'
-                    );
-                    wp_nav_menu($args);
+                    ));
                 ?>
+
+                <!-- قائمة النشر المنسدلة للناشرين فقط -->
+                <?php if (sr_can_user_publish()): ?>
+                    <div class="publish-dropdown">
+                        <button type="button" class="btn-publish-trigger">
+                            <span>نشر ▾</span>
+                        </button>
+                        <div class="publish-menu">
+                            <a href="<?php echo esc_url(home_url('/add-episode/')); ?>">
+                                🎬 نشر حلقة جديدة
+                            </a>
+                            <a href="<?php echo esc_url(home_url('/add-anime/')); ?>">
+                                ✨ إضافة عمل جديد
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
 
         </div>
     </header>
 
-    <!-- سلايدر أحدث الحلقات (يظهر فقط في الصفحة الرئيسية) -->
+    <!-- سلايدر أحدث الحلقات في الرئيسية -->
     <?php if(is_front_page()): ?>
     <section class="header-slider swiper">
         <div class="swiper-wrapper recents-slider">
             <?php
                 $args = array(
                     'post_type'      => 'animwp_capitulos',
-                    'posts_per_page' => 6, // زيادة العدد لـ 6 ليتناسب مع السلايدر
+                    'posts_per_page' => 6,
                     'post_status'    => 'publish'
                 );
-        
                 $capitulos = new WP_Query($args);
                 if ($capitulos->have_posts()):
-                    while ($capitulos->have_posts()):
-                        $capitulos->the_post();
-                        // جلب صورة الغلاف سواء من حقل ACF أو من الصورة البارزة الافتراضية
+                    while ($capitulos->have_posts()): $capitulos->the_post();
                         $cover = function_exists('get_field') ? get_field('cover') : '';
                         if(empty($cover) && has_post_thumbnail()) {
                             $cover = get_the_post_thumbnail_url(get_the_ID(), 'full');
@@ -69,7 +80,7 @@
                             <?php if(!empty($cover)): ?>
                                 <img src="<?php echo esc_url($cover); ?>" alt="<?php the_title_attribute(); ?>">
                             <?php else: ?>
-                                <div class="no-thumb">لا توجد صورة</div>
+                                <div class="no-thumb">حلقة جديدة</div>
                             <?php endif; ?>
                         </div>
                         <div class="slide-overlay">
@@ -77,11 +88,11 @@
                         </div>
                     </a>
                 </div>
-                <?php 
+            <?php 
                     endwhile;
-                    wp_reset_postdata(); // مهم جداً لإعادة ضبط استعلام ووردبريس الأساسي
+                    wp_reset_postdata();
                 endif; 
-                ?>
+            ?>
         </div>
     </section>
     <?php endif; ?>
