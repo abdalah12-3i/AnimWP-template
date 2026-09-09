@@ -1,13 +1,14 @@
 <?php 
-    get_header(); 
-    $serie_id = get_the_ID();
-    $anime_title = get_the_title();
+get_header(); 
+$serie_id    = get_the_ID();
+$anime_title = get_the_title();
+$status      = get_post_meta($serie_id, 'anime_status', true);
+if (empty($status)) $status = 'مترجم';
 ?>
 
 <main class="contenedor">
     <article class="anime-single-container">
         
-        <!-- معلومات وبوستر الأنمي -->
         <div class="anime-header">
             <div class="anime-poster">
                 <?php if(has_post_thumbnail()): ?>
@@ -21,12 +22,12 @@
                 <h1 class="anime-title"><?php echo esc_html($anime_title); ?></h1>
                 
                 <div class="anime-meta">
-                    <span class="badge status">حالة العمل: مترجم</span>
+                    <span class="badge status">الحالة: <?php echo esc_html($status); ?></span>
                     <span class="badge team">فريق الترجمة: Soul Reapers</span>
                 </div>
 
                 <div class="anime-story">
-                    <h3>القصة:</h3>
+                    <h3>قصة العمل:</h3>
                     <div class="story-content">
                         <?php the_content(); ?>
                     </div>
@@ -34,14 +35,13 @@
             </div>
         </div>
 
-        <!-- قائمة حلقات الأنمي -->
+        <!-- قائمة الحلقات -->
         <div class="anime-episodes-section">
             <h2 class="section-title">حلقات <?php echo esc_html($anime_title); ?></h2>
 
             <div class="episodes-grid">
                 <?php
-                    // جلب الحلقات التابعة لنفس الأنمي عبر التصنيف
-                    $args = array(
+                    $episodes = new WP_Query(array(
                         'post_type'      => 'animwp_capitulos',
                         'posts_per_page' => -1,
                         'tax_query'      => array(
@@ -51,16 +51,11 @@
                                 'terms'    => $anime_title,
                             ),
                         ),
-                    );
-
-                    $episodes = new WP_Query($args);
+                    ));
 
                     if($episodes->have_posts()):
                         while($episodes->have_posts()): $episodes->the_post();
-                            $cap_cover = function_exists('get_field') ? get_field('cover') : '';
-                            if(empty($cap_cover) && has_post_thumbnail()) {
-                                $cap_cover = get_the_post_thumbnail_url(get_the_ID(), 'medium');
-                            }
+                            $cap_cover = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'medium') : '';
                 ?>
                     <a href="<?php the_permalink(); ?>" class="episode-card">
                         <div class="episode-thumb">
@@ -77,7 +72,7 @@
                         wp_reset_postdata();
                     else:
                 ?>
-                    <p class="no-episodes">لم يتم إضافة حلقات لهذا العمل حتى الآن.</p>
+                    <p class="no-episodes">لا توجد حلقات مضافة حتى الآن.</p>
                 <?php endif; ?>
             </div>
         </div>
