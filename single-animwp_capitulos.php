@@ -1,68 +1,95 @@
-<?php get_header(); ?>
+<?php 
+get_header(); 
+$ep_id = get_the_ID();
 
-<main class="contenedor con-sidebar">
-    <section class="seccion seccion-capitulo">
-        
-        <!-- تفاصيل الحلقة ورقمها -->
-        <?php get_template_part('template-parts/capitulo'); ?>
+// جلب سيرفرات المشاهدة وروابط التحميل
+$watch_servers = get_post_meta($ep_id, 'servidores', true);
+if (!is_array($watch_servers)) $watch_servers = array();
 
-        <div class="player-container">
-            <?php 
-                $servers = function_exists('get_fields') ? get_fields() : array();
-                $servidores = isset($servers['servidores']) && is_array($servers['servidores']) ? $servers['servidores'] : array();
-                
-                // جلب أول سيرفر افتراضياً
-                $default = !empty($servidores) ? reset($servidores) : '';
-            ?>
+$downloads = get_post_meta($ep_id, 'downloads', true);
+if (!is_array($downloads)) $downloads = array();
 
-            <!-- أزرار تبديل السيرفرات -->
-            <?php if(!empty($servidores)): ?>
-                <div class="server-header">
-                    <span class="server-title">اختر سيرفر المشاهدة:</span>
-                    <nav class="server-nav">
+// تصفية وحذف أي رابط فارغ حتى لا يظهر للزائر
+$filtered_servers = array_filter($watch_servers, function($url) {
+    return !empty($url);
+});
+
+$filtered_downloads = array_filter($downloads, function($url) {
+    return !empty($url);
+});
+
+$default_server = !empty($filtered_servers) ? reset($filtered_servers) : '';
+?>
+
+<main class="contenedor">
+    <article class="episode-view">
+        <h1 class="episode-main-title"><?php the_title(); ?></h1>
+
+        <!-- مشغل وسيرفرات المشاهدة -->
+        <?php if (!empty($filtered_servers)): ?>
+            <div class="watch-container">
+                <div class="servers-nav-wrap">
+                    <span class="lbl">اختر سيرفر المشاهدة:</span>
+                    <div class="server-buttons">
                         <?php 
-                            $i = 1;
-                            foreach($servidores as $nombre => $link): 
-                                if(empty($link)) continue;
-                                $active_class = ($i === 1) ? 'active' : '';
+                        $first = true;
+                        foreach ($filtered_servers as $s_name => $s_link): 
                         ?>
-                            <button type="button" class="btn btn-server <?php echo $active_class; ?>" data-enlace="<?php echo esc_url($link); ?>">
-                                <?php echo is_string($nombre) && !is_numeric($nombre) ? esc_html($nombre) : 'سيرفر ' . $i; ?>
+                            <button type="button" class="btn-server-item <?php echo $first ? 'active' : ''; ?>" data-src="<?php echo esc_url($s_link); ?>">
+                                <?php echo esc_html($s_name); ?>
                             </button>
                         <?php 
-                            $i++;
-                            endforeach; 
+                            $first = false;
+                        endforeach; 
                         ?>
-                    </nav>
-                </div>
-            <?php endif; ?>
-
-            <!-- مشغل الفيديو -->
-            <div class="video-responsive">
-                <?php if(!empty($default)): ?>
-                    <iframe id="iframe" class="iframe" src="<?php echo esc_url($default); ?>" frameborder="0" allowfullscreen></iframe>
-                <?php else: ?>
-                    <div class="no-video">
-                        <p>⚠️ لم يتم إضافة سيرفرات مشاهدة لهذه الحلقة بعد.</p>
                     </div>
-                <?php endif; ?>
-            </div>
+                </div>
 
-            <!-- أزرار التنقل السريع -->
-            <div class="nav-capitulos">
-                <?php
-                    $terms = get_the_terms(get_the_ID(), 'anime');
-                    if($terms && !is_wp_error($terms)):
-                        $anime_term = reset($terms);
-                ?>
-                    <a href="<?php echo esc_url(get_term_link($anime_term)); ?>" class="btn btn-anime">
-                        قائمة جميع حلقات (<?php echo esc_html($anime_term->name); ?>)
-                    </a>
-                <?php endif; ?>
+                <div class="player-box">
+                    <iframe id="main-player" src="<?php echo esc_url($default_server); ?>" frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
+        <?php else: ?>
+            <p class="sr-alert sr-warning">لم يتم إضافة سيرفرات مشاهدة لهذه الحلقة بعد.</p>
+        <?php endif; ?>
+
+        <!-- قسم التحميل (يختفي تماماً إن لم تكن هناك روابط) -->
+        <?php if (!empty($filtered_downloads)): ?>
+            <div class="download-section-box">
+                <h3 class="dl-heading">📥 روابط التحميل المتاحة:</h3>
+                <div class="download-links-grid">
+                    <?php foreach ($filtered_downloads as $d_name => $d_link): ?>
+                        <a href="<?php echo esc_url($d_link); ?>" target="_blank" rel="noopener noreferrer" class="btn-dl-badge">
+                            تحميل عبر <strong><?php echo esc_html($d_name); ?></strong> ⬇
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <!-- رابط الرجوع للأنمي -->
+        <div class="back-to-anime-wrap" style="margin-top: 25px;">
+            <?php
+                $parent_id = get_post_meta($ep_id, 'parent_anime_id', true);
+                if ($parent_id):
+            ?>
+                <a href="<?php echo esc_url(get_permalink($parent_id)); ?>" class="btn-back-anime">
+                    ← العودة لصفحة الأنمي وقائمة جميع الحلقات
+                </a>
+            <?php endif; ?>
         </div>
 
-    </section>
+    </article>
 </main>
+
+<script>
+document.querySelectorAll('.btn-server-item').forEach(button => {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.btn-server-item').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('main-player').src = this.getAttribute('data-src');
+    });
+});
+</script>
 
 <?php get_footer(); ?>
