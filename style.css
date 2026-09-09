@@ -1,39 +1,32 @@
 /*
     Theme Name: Soul Reapers - النقابة
-    Description: الهوية الرسمية لنقابة حاصد الأرواح (بنفسجي وتوهج أزرق ملكي)
-    Version: 2.5
+    Description: الهوية الكاملة لنقابة حاصد الأرواح (بنفسجي ملكي وتوهج أزرق شبحي)
+    Version: 3.0
     Text Domain: soulreapers
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Changa:wght@700;900&family=Montserrat:wght@800&display=swap');
 
 :root {
-    --fuente-principal: 'Cairo', sans-serif;
-    --fuente-heading: 'Changa', 'Cairo', sans-serif;
-
-    /* ألوان نقابة حاصد الأرواح (Soul Reapers) */
-    --Primario: #8a2be2;              /* بنفسجي ناري أسطوري */
-    --Primario-hover: #9d4edd;        /* بنفسجي متوهج */
-    --Aura-Blue: #00b4d8;             /* التوهج الأزرق الداكن */
+    --Primario: #8a2be2;
+    --Primario-hover: #9d4edd;
+    --Aura-Blue: #00b4d8;
     --Aura-Glow: rgba(0, 180, 216, 0.45);
+    --Purple-Glow: rgba(138, 43, 226, 0.45);
 
-    --gris-oscuro: #0a0a0f;           /* سواد أزرق حالك */
-    --gris-medio: #12131c;
-    --gris-claro: #222330;
+    --gris-oscuro: #08090d;
+    --gris-medio: #10111a;
+    --gris-claro: #1c1e2d;
     --blanco: #ffffff;
-    --negro: #06060a;
-    --texto-secundario: #8f92a3;
+    --negro: #040508;
+    --texto-secundario: #8f93a7;
 }
 
-html {
-    box-sizing: border-box;
-    font-size: 62.5%;
-    direction: rtl;
-}
+html { box-sizing: border-box; font-size: 62.5%; direction: rtl; }
 *, *:before, *:after { box-sizing: inherit; }
 
 body {
-    font-family: var(--fuente-principal);
+    font-family: 'Cairo', sans-serif;
     font-size: 1.6rem;
     line-height: 1.8;
     background: var(--gris-oscuro);
@@ -43,244 +36,49 @@ body {
     text-align: right;
 }
 
-/* شريط التمرير */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--Primario) var(--gris-claro);
-}
-*::-webkit-scrollbar { width: 0.8rem; }
-*::-webkit-scrollbar-track { background: var(--negro); }
-*::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--Primario), var(--Aura-Blue));
-    border-radius: 0.4rem;
-}
-
-h1, h2, h3, h4 {
-    font-family: var(--fuente-heading);
-    margin: 0 0 2rem 0;
-    color: var(--blanco);
-}
-h1 { font-size: 3.6rem; }
-h2 { font-size: 2.8rem; }
-h3 { font-size: 2.2rem; }
-h4 { font-size: 1.8rem; }
-
+h1, h2, h3, h4 { font-family: 'Changa', 'Cairo', sans-serif; margin: 0 0 2rem 0; color: var(--blanco); }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; margin: 0; padding: 0; }
-img { max-width: 100%; height: auto; display: block; }
 .contenedor { width: min(95%, 125rem); margin: 0 auto; }
 
-/* ==========================================
-   الهيدر وشعار حاصد الأرواح
-========================================== */
-.site-navbar {
-    background: var(--negro);
-    border-bottom: 2px solid var(--gris-claro);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.8);
-    position: sticky;
-    top: 0;
-    z-index: 99999;
-}
-
-.navegacion {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.8rem 0;
-}
-
-/* لوغو النقابة: بنفسجي مع توهج أزرق أسطوري */
-.site-logo {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1;
-    transition: transform 0.2s ease;
-}
-.site-logo:hover {
-    transform: scale(1.04);
-}
-.site-logo .logo-ar {
-    font-family: 'Changa', sans-serif;
-    font-size: 3.8rem;
-    font-weight: 900;
-    background: linear-gradient(180deg, #c77dff 0%, #9d4edd 40%, #7b2cbf 70%, #00b4d8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0px 2px 2px #000) drop-shadow(0px 0px 14px var(--Aura-Glow));
-}
-.site-logo .logo-en {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: var(--Aura-Blue);
-    margin-top: -3px;
-    text-shadow: 0 0 8px rgba(0, 180, 216, 0.6);
-}
-
-/* شريط البحث */
-.header-search {
-    flex: 1;
-    max-width: 34rem;
-    margin: 0 2rem;
-}
-.header-search .search-form {
-    display: flex;
-    align-items: center;
-    background: var(--gris-medio);
-    border: 1px solid var(--gris-claro);
-    border-radius: 2.5rem;
-    padding: 0.3rem 1.4rem;
+/* أزرار الحفظ والنشر */
+.btn-primary-submit {
+    background: linear-gradient(135deg, #7b2cbf, #5a189a) !important;
+    color: #fff !important;
+    border: 1px solid rgba(0, 180, 216, 0.4) !important;
+    padding: 1.4rem;
+    width: 100%;
+    border-radius: 0.6rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(123, 44, 191, 0.4);
     transition: 0.3s;
 }
-.header-search .search-form:focus-within {
-    border-color: var(--Aura-Blue);
-    box-shadow: 0 0 12px var(--Aura-Glow);
-}
-.header-search .search-field {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-size: 1.3rem;
-    width: 100%;
-    padding: 0.6rem;
-    font-family: var(--fuente-principal);
-}
-.header-search .search-submit {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.4rem;
+.btn-primary-submit:hover {
+    box-shadow: 0 0 20px var(--Aura-Glow);
+    background: linear-gradient(135deg, #9d4edd, #7b2cbf) !important;
 }
 
-/* القوائم المنسدلة والأزرار (تم حل مشكلة الصعوبة) */
-.enlaces {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+/* إطارات الصناديق */
+.highlight-box {
+    border-color: var(--Primario) !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
 }
-.dropdown-wrapper {
-    position: relative;
-    display: inline-block;
-}
-.btn-action-trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    border: none;
-    cursor: pointer;
-    font-family: var(--fuente-principal);
-    font-size: 1.4rem;
-    font-weight: 700;
-    border-radius: 0.6rem;
-    padding: 0.8rem 1.6rem;
-    transition: 0.25s;
-}
-
-/* زر النشر: بنفسجي بتوهج أزرق */
-.btn-publish {
-    background: linear-gradient(135deg, #7b2cbf, #5a189a);
-    color: #fff;
-    border: 1px solid rgba(0, 180, 216, 0.4);
-    box-shadow: 0 2px 10px rgba(123, 44, 191, 0.5);
-}
-.btn-publish:hover {
-    background: linear-gradient(135deg, #9d4edd, #7b2cbf);
-    box-shadow: 0 0 15px var(--Aura-Glow);
-}
-
-/* زر البروفايل */
-.btn-user {
-    background: var(--gris-medio);
-    color: #fff;
+.sr-box {
     border: 1px solid var(--gris-claro);
-}
-.btn-user:hover {
-    border-color: var(--Aura-Blue);
-}
-.nav-avatar img {
-    border-radius: 50%;
-    border: 2px solid var(--Aura-Blue);
-}
-
-/* القائمة المنسدلة الثابتة والمحسنة */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0;
-    background: #101118;
-    border: 1px solid var(--Primario);
-    min-width: 18rem;
     border-radius: 0.8rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8), 0 0 15px rgba(138, 43, 226, 0.3);
-    z-index: 999999;
-    overflow: hidden;
+    padding: 2rem;
+    background: var(--gris-medio);
+    margin-bottom: 2rem;
 }
-/* إظهار القائمة بسلاسة */
-.dropdown-wrapper:hover .dropdown-content,
-.dropdown-wrapper.active .dropdown-content {
-    display: block;
-}
-.dropdown-content a {
-    display: block;
-    padding: 1.2rem 1.6rem;
-    color: #eee;
-    font-size: 1.35rem;
-    border-bottom: 1px solid #1a1c26;
-    transition: 0.2s;
-    text-align: right;
-}
-.dropdown-content a:hover {
-    background: var(--Primario);
-    color: #fff;
-}
-.logout-item { color: #e74c3c !important; }
-
-/* زر الدخول للزوار */
-.btn-login-nav {
-    background: transparent;
-    border: 1px solid var(--Aura-Blue);
+.sr-box legend {
     color: var(--Aura-Blue) !important;
-    padding: 0.7rem 1.6rem;
-    border-radius: 0.6rem;
     font-weight: 700;
-}
-.btn-login-nav:hover {
-    background: var(--Aura-Blue);
-    color: #000 !important;
-    box-shadow: 0 0 12px var(--Aura-Glow);
+    padding: 0 1rem;
 }
 
-/* ==========================================
-   السلايدر والبطاقات
-========================================== */
-.header-slider { width: 100%; background: #000; overflow: hidden; }
-.slide-item { display: block; position: relative; height: 38rem; }
-.slide-thumb img { width: 100%; height: 38rem; object-fit: cover; }
-.slide-overlay {
-    position: absolute;
-    bottom: 0; right: 0; left: 0;
-    background: linear-gradient(to top, rgba(10,10,15,0.98) 15%, transparent 100%);
-    padding: 3rem 2rem 1.5rem 2rem;
-}
-.slide-badge {
-    background: var(--Aura-Blue);
-    color: #000;
-    font-weight: 900;
-    font-size: 1.1rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 0.4rem;
-    display: inline-block;
-}
-.slide-title { font-size: 2rem; margin: 0.8rem 0 0 0; }
-.swiper-button-next, .swiper-button-prev {
-    color: var(--Aura-Blue) !important;
-}
-
-/* شبكة الحلقات والأنمي */
+/* بطاقات الحلقات والأنمي */
 .episodes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
@@ -295,12 +93,62 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .episode-card:hover {
     transform: translateY(-5px);
-    border-color: var(--Aura-Blue);
-    box-shadow: 0 8px 20px rgba(0, 180, 216, 0.2);
+    border-color: var(--Aura-Blue) !important;
+    box-shadow: 0 8px 25px var(--Aura-Glow);
 }
 .episode-thumb { height: 13rem; background: #000; }
 .episode-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .episode-name { font-size: 1.4rem; padding: 1.2rem; text-align: center; margin: 0; }
+
+/* أزرار السيرفرات والتحميل في صفحة الحلقة */
+.btn-server-item {
+    background: var(--gris-medio);
+    color: #ccc;
+    border: 1px solid var(--gris-claro);
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-server-item.active, .btn-server-item:hover {
+    background: var(--Primario) !important;
+    color: #fff !important;
+    border-color: var(--Aura-Blue) !important;
+    box-shadow: 0 0 12px var(--Purple-Glow);
+}
+
+.btn-dl-badge {
+    background: var(--gris-medio);
+    color: var(--Aura-Blue) !important;
+    border: 1px solid var(--gris-claro);
+    padding: 1rem 1.8rem;
+    border-radius: 0.6rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.2s;
+}
+.btn-dl-badge:hover {
+    background: linear-gradient(135deg, #7b2cbf, #5a189a) !important;
+    color: #fff !important;
+    border-color: var(--Aura-Blue) !important;
+    box-shadow: 0 0 15px var(--Aura-Glow);
+}
+
+.btn-add-other {
+    background: transparent;
+    border: 1px dashed var(--Aura-Blue) !important;
+    color: var(--Aura-Blue) !important;
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.btn-add-other:hover {
+    background: rgba(0, 180, 216, 0.1);
+}
 
 /* التنبيهات */
 .sr-alert {
@@ -310,17 +158,7 @@ img { max-width: 100%; height: auto; display: block; }
     margin: 2rem 0;
 }
 .sr-warning {
-    background: rgba(138, 43, 226, 0.1);
+    background: rgba(138, 43, 226, 0.12);
     border: 1px solid var(--Primario);
     color: #c77dff;
 }
-
-/* الفوتر */
-.footer {
-    background: var(--negro);
-    border-top: 1px solid var(--gris-claro);
-    padding: 3rem 0;
-    margin-top: 6rem;
-    text-align: center;
-}
-.copyright { color: var(--texto-secundario); font-size: 1.3rem; }
