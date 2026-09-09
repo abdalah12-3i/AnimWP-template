@@ -1,7 +1,35 @@
-<?php
-get_header();?>
+<?php 
+/**
+ * صفحة التصنيفات - نقابة Soul Reapers
+ */
+get_header(); 
+?>
 
-<h1 class="text-white">Categoria</h1>
+<main class="contenedor seccion">
+    <header style="margin-bottom: 3rem; border-right: 4px solid var(--Primario); padding-right: 1.5rem;">
+        <h1 style="color: var(--Primario); margin-bottom: 0.5rem;"><?php single_cat_title('تصنيف: '); ?></h1>
+    </header>
 
+    <div class="episodes-grid">
+        <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <a href="<?php the_permalink(); ?>" class="episode-card">
+                <div class="episode-thumb">
+                    <?php if (has_post_thumbnail()): ?>
+                        <?php the_post_thumbnail('medium'); ?>
+                    <?php else: ?>
+                        <div class="no-thumb" style="display:flex;align-items:center;justify-content:center;height:100%;color:#777;">منشور</div>
+                    <?php endif; ?>
+                </div>
+                <h4 class="episode-name"><?php the_title(); ?></h4>
+            </a>
+        <?php endwhile; else: ?>
+            <p class="sr-alert sr-warning">لا توجد منشورات في هذا التصنيف.</p>
+        <?php endif; ?>
+    </div>
 
-<?php get_footer();?>
+    <div style="margin-top: 3rem; text-align: center;">
+        <?php the_posts_pagination(array('prev_text' => '← السابق', 'next_text' => 'التالي →')); ?>
+    </div>
+</main>
+
+<?php get_footer(); ?>
