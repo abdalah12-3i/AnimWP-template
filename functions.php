@@ -4,25 +4,20 @@
  * Description: قالب مخصص لموقع الأنمي والترجمة Soul Reapers Guild
  */
 
-// تضمين الودجات
+// 1. تضمين الودجات
 if (file_exists(get_template_directory() . '/include/widgets.php')) {
     require get_template_directory() . '/include/widgets.php';
 }
 
-// 1. إعدادات القالب الأساسية
+// 2. إعدادات القالب الأساسية
 function soulreapers_setup() {
-    // دعم الصور البارزة
     add_theme_support('post-thumbnails');
-
-    // دعم العناوين التلقائية للسيو (SEO)
     add_theme_support('title-tag');
-
-    // دعم اللوغو من التخصيص
     add_theme_support('custom-logo');
 }
 add_action('after_setup_theme', 'soulreapers_setup');
 
-// 2. تسجيل القوائم
+// 3. تسجيل القوائم
 function soulreapers_menus() {
     register_nav_menus(array(
         'main-menu' => __('القائمة الرئيسية (Main Menu)', 'soulreapers')
@@ -30,23 +25,19 @@ function soulreapers_menus() {
 }
 add_action('init', 'soulreapers_menus');
 
-// 3. تضمين الملفات والمكتبات (CSS & JS)
+// 4. تضمين الملفات والمكتبات
 function soulreapers_scripts() {
-    // Swiper Slider CSS
     wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css', array(), '10.1.0');
-    // Normalize CSS
     wp_enqueue_style('normalize', 'https://necolas.github.io/normalize.css/8.0.1/normalize.css', array(), '8.0.1');
-    // القالب الأساسي
     wp_enqueue_style('soulreapers-style', get_stylesheet_uri(), array('normalize'), '1.0.0');
 
-    // Scripts
     wp_enqueue_script('jquery');
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', array(), '10.1.0', true);
     wp_enqueue_script('soulreapers-script', get_template_directory_uri() . '/js/script.js', array('jquery', 'swiper-js'), '1.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'soulreapers_scripts');
 
-// 4. تسجيل الشريط الجانبي (تم إصلاح أخطاء الكلمات)
+// 5. تسجيل الشريط الجانبي (Sidebar)
 function soulreapers_widgets() {
     register_sidebar(array(
         'name'          => 'الشريط الجانبي (Sidebar)',
@@ -59,7 +50,7 @@ function soulreapers_widgets() {
 }
 add_action('widgets_init', 'soulreapers_widgets');
 
-// 5. تسجيل نوع منشور مخصص: (الأعمال والأنميات)
+// 6. تسجيل نوع المنشور: الأعمال والأنميات
 function soulreapers_register_series() {
     $labels = array(
         'name'               => 'الأنميات والأعمال',
@@ -68,13 +59,9 @@ function soulreapers_register_series() {
         'add_new'            => 'إضافة عمل جديد',
         'add_new_item'       => 'إضافة أنمي جديد',
         'edit_item'          => 'تعديل الأنمي',
-        'new_item'           => 'أنمي جديد',
-        'view_item'          => 'عرض صفحة الأنمي',
-        'search_items'       => 'بحث في الأنميات',
-        'not_found'          => 'لم يتم العثور على أي عمل',
+        'all_items'          => 'جميع الأنميات',
     );
-
-    $args = array(
+    register_post_type('animwp_serie', array(
         'labels'             => $labels,
         'public'             => true,
         'has_archive'        => true,
@@ -82,13 +69,11 @@ function soulreapers_register_series() {
         'supports'           => array('title', 'editor', 'thumbnail', 'custom-fields'),
         'rewrite'            => array('slug' => 'series'),
         'show_in_rest'       => true,
-    );
-
-    register_post_type('animwp_serie', $args);
+    ));
 }
 add_action('init', 'soulreapers_register_series');
 
-// 6. تسجيل نوع منشور مخصص: (الحلقات)
+// 7. تسجيل نوع المنشور: الحلقات
 function soulreapers_register_episodes() {
     $labels = array(
         'name'               => 'الحلقات',
@@ -97,13 +82,9 @@ function soulreapers_register_episodes() {
         'add_new'            => 'إضافة حلقة جديدة',
         'add_new_item'       => 'إضافة حلقة جديدة',
         'edit_item'          => 'تعديل الحلقة',
-        'new_item'           => 'حلقة جديدة',
-        'view_item'          => 'مشاهدة الحلقة',
-        'search_items'       => 'بحث في الحلقات',
-        'not_found'          => 'لا توجد حلقات مضافة',
+        'all_items'          => 'جميع الحلقات',
     );
-
-    $args = array(
+    register_post_type('animwp_capitulos', array(
         'labels'             => $labels,
         'public'             => true,
         'has_archive'        => true,
@@ -111,29 +92,19 @@ function soulreapers_register_episodes() {
         'supports'           => array('title', 'editor', 'thumbnail', 'custom-fields'),
         'rewrite'            => array('slug' => 'episodes'),
         'show_in_rest'       => true,
-    );
-
-    register_post_type('animwp_capitulos', $args);
+    ));
 }
 add_action('init', 'soulreapers_register_episodes');
 
-// 7. تصنيف الأنمي المربوط بالحلقات
+// 8. تسجيل تصنيف الأنمي
 function soulreapers_anime_taxonomy() {
-    $labels = array(
-        'name'              => 'اسم الأنمي',
-        'singular_name'     => 'الأنمي',
-        'search_items'      => 'بحث عن أنمي',
-        'all_items'         => 'جميع الأنميات',
-        'edit_item'         => 'تعديل الأنمي',
-        'update_item'       => 'تحديث الأنمي',
-        'add_new_item'      => 'إضافة أنمي جديد',
-        'new_item_name'     => 'اسم الأنمي الجديد',
-        'menu_name'         => 'تصنيف الأنميات',
-    );
-
     register_taxonomy('anime', array('animwp_capitulos', 'animwp_serie'), array(
         'hierarchical'      => true,
-        'labels'            => $labels,
+        'labels'            => array(
+            'name'          => 'اسم الأنمي',
+            'singular_name' => 'الأنمي',
+            'menu_name'     => 'تصنيف الأنميات',
+        ),
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true,
@@ -142,53 +113,24 @@ function soulreapers_anime_taxonomy() {
     ));
 }
 add_action('init', 'soulreapers_anime_taxonomy');
-// إضافة حقول السيرفرات مباشرة داخل صفحة إضافة الحلقة لتسهيل النشر
-function soulreapers_add_servers_metabox() {
-    add_meta_box(
-        'soulreapers_servers',
-        'لوحة روابط وسيرفرات المشاهدة',
-        'soulreapers_servers_callback',
-        'animwp_capitulos',
-        'normal',
-        'high'
-    );
-}
-add_action('add_meta_boxes', 'soulreapers_add_servers_metabox');
 
-function soulreapers_servers_callback($post) {
-    wp_nonce_field('save_servers_data', 'servers_nonce');
-    $servers = get_post_meta($post->ID, 'servidores', true);
-    if (!is_array($servers)) $servers = array();
-    
-    $server_names = array(
-        'سيرفر مباشر (Drive / Okru)' => 'servidor_1',
-        'سيرفر 2 (Mega)'            => 'servidor_2',
-        'سيرفر 3 (VidBom)'          => 'servidor_3',
-        'سيرفر 4 (DoodStream)'      => 'servidor_4',
-    );
-    ?>
-    <div style="direction: rtl; text-align: right; padding: 10px;">
-        <p style="color: #666; margin-bottom: 15px;">ضع روابط التضمين (Embed URL) لكل سيرفر:</p>
-        <?php foreach($server_names as $label => $key): 
-            $val = isset($servers[$key]) ? $servers[$key] : '';
-        ?>
-            <div style="margin-bottom: 12px;">
-                <label style="display:block; font-weight: bold; margin-bottom: 4px;"><?php echo $label; ?>:</label>
-                <input type="text" name="servidores[<?php echo $key; ?>]" value="<?php echo esc_attr($val); ?>" style="width: 100%; max-width: 650px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" placeholder="https://...">
-            </div>
-        <?php endforeach; ?>
-    </div>
-    <?php
-}
+// 9. تسجيل رتبة "ناشر النقابة" وصلاحية النشر
+function soulreapers_register_publisher_role() {
+    add_role('guild_publisher', 'ناشر النقابة', array(
+        'read'                  => true,
+        'edit_posts'            => true,
+        'upload_files'          => true,
+        'publish_guild_content' => true,
+    ));
 
-// حفظ بيانات السيرفرات
-function soulreapers_save_servers($post_id) {
-    if (!isset($_POST['servers_nonce']) || !wp_verify_nonce($_POST['servers_nonce'], 'save_servers_data')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (!current_user_can('edit_post', $post_id)) return;
-
-    if (isset($_POST['servidores'])) {
-        update_post_meta($post_id, 'servidores', $_POST['servidores']);
+    $admin = get_role('administrator');
+    if ($admin && !$admin->has_cap('publish_guild_content')) {
+        $admin->add_cap('publish_guild_content');
     }
 }
-add_action('save_post', 'soulreapers_save_servers');
+add_action('init', 'soulreapers_register_publisher_role');
+
+// فحص صلاحية النشر للمستخدم الحالي
+function sr_can_user_publish() {
+    return is_user_logged_in() && (current_user_can('publish_guild_content') || current_user_can('administrator'));
+}
