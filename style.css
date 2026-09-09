@@ -1,36 +1,32 @@
 /*
-    Theme Name: AniWP Theme
-    Theme URI: 
-    Author: Jorge Gomez
-    Author URI: https://github.com/Jorge96js
-    Description: Theme Diseñado para WordPress
-    Version: 1.0
+    Theme Name: Soul Reapers - النقابة
+    Theme URI: https://github.com/
+    Author: Soul Reapers Guild Team
+    Author URI: https://github.com/
+    Description: قالب مخصص لموقع الأنمي والترجمة لفريق Soul Reapers
+    Version: 2.0
     License: GNU General Public License v2 or later
     License URI: http://www.gnu.org/licenses/gpl-2.0.html
-    Tags: Gym, anime, flexbox, css grid, mobile first
-    Text Domain: AniWP Theme
+    Tags: anime, streaming, arabic, rtl, soul-reapers
+    Text Domain: soulreapers
 */
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,400;1,500;1,600;1,700;1,800&family=Oswald&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
-:root{
-    --fuente-principal: 'Do Hyeon', sans-serif;
-    --fuente-heading:'Roboto', sans-serif;
 
+/* استيراد الخطوط العربية والإنجليزية */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Changa:wght@700;900&family=Montserrat:wght@800&family=Roboto:wght@400;700&display=swap');
 
-    /**Colores**/
+:root {
+    --fuente-principal: 'Cairo', sans-serif;
+    --fuente-heading: 'Changa', 'Cairo', sans-serif;
 
-    --Primario:#D64F5E;
-    --gris-oscuro:#191919;
-    --gris-claro:#373737;
-    --blanco:#fff;
-    --negro:#0B0B0B;
-
-}
-
-iframe{
-    width: 100%;
-    min-height: 20rem;
-    height: 50rem;
-    background: #202020;
+    /** الألوان الأساسية **/
+    --Primario: #ff4b2b;
+    --Primario-hover: #ff416c;
+    --gris-oscuro: #121316;
+    --gris-medio: #1a1b1f;
+    --gris-claro: #282a30;
+    --blanco: #ffffff;
+    --negro: #0b0b0c;
+    --texto-secundario: #a0a5b1;
 }
 
 html {
@@ -38,492 +34,608 @@ html {
     font-size: 62.5%;
     margin: 0;
     padding: 0;
-    
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-
-  aside{
-    padding: 10rem 0;
-  }
-
-  /**Btones**/
-
-
-  .btn{
-    display: inline-block;
-    border: none;
-    background-color: var(--gris-oscuro);
-    padding: .3rem;
-    color: var(--gris-claro);
-    cursor: pointer;
-    margin: .5rem 1rem;
-  }
-body{
-    font-family: var(--fuente-principal);
-    font-size: 1.8rem;
-    line-height: 2;
-    background: var(--gris-oscuro);
-    margin: 0!important;
+    direction: rtl;
 }
 
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    font-size: 1.6rem;
+    line-height: 1.8;
+    background: var(--gris-oscuro);
+    color: var(--blanco);
+    margin: 0 !important;
+    direction: rtl;
+    text-align: right;
+}
+
+/* تخصيص شريط التمرير (Scrollbar) */
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--Primario) var(--gris-claro);
-  }
-
-*::-webkit-scrollbar{
-    width: 1rem;
 }
-*::-webkit-scrollbar-track{
-    background-color: #2d2d2d;
-    padding: 1rem;
+*::-webkit-scrollbar {
+    width: 0.8rem;
 }
-*::-webkit-scrollbar-thumb{
+*::-webkit-scrollbar-track {
+    background-color: var(--negro);
+}
+*::-webkit-scrollbar-thumb {
     background-color: var(--Primario);
-    border-radius: .5rem;
+    border-radius: 0.4rem;
 }
 
-
-/**Headings**/
-
-h1,h2,h3,h4{
+/* العناوين */
+h1, h2, h3, h4, h5 {
     font-family: var(--fuente-heading);
-    margin: 0 0 5rem 0;
-    line-height: 1.2;
-}
-
-
-hr{
-    border: 1px solid var(--gris-claro);
-}
-
-h1{
-    font-size: 6rem;
-}
-
-h2{
-    font-size: 4.8rem;
-}
-
-h3{
-    font-size: 3.6rem;
-}
-
-/**Globales**/
-
-.contenedor-boton{
-    display: flex;
-    justify-content: flex-end;
-}
-.form-submit .submit,
-.boton{
-    background-color: var(--blanco);
-    color: var(--negro);
-    padding: 1rem 2rem;
-    display: block;
-    flex: 1;
-    text-align: center;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: .5rem;
-    margin: 1rem 0;
-    width: 100%;
-}
-@media(min-width: 768px){
-    .boton{
-        display: inline-block;
-        flex: 0 0 auto;
-        width: auto;
-    }
-}
-
-.boton-primario{
-    background-color: var(--Primario);
+    margin: 0 0 2rem 0;
+    line-height: 1.3;
     color: var(--blanco);
 }
-p{
-    margin: 0;
-}
 
-a{
-    text-decoration: none;
-}
+h1 { font-size: 3.8rem; }
+h2 { font-size: 3rem; }
+h3 { font-size: 2.4rem; }
+h4 { font-size: 1.8rem; }
 
-ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+p { margin: 0 0 1.5rem 0; }
+a { text-decoration: none; color: inherit; transition: 0.2s ease; }
+ul { list-style: none; margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+hr { border: none; border-top: 1px solid var(--gris-claro); margin: 2rem 0; }
 
-img{
-    max-width: 100%;
-    height: auto;
-}
-
-.imagen-destacada{
-    margin-bottom: 3rem;
-}
-
-.contenedor{
-    width: min(95%,130rem);
+.contenedor {
+    width: min(95%, 125rem);
     margin: 0 auto;
 }
 
-.contenido-centrado{
-    width: min(95%,80rem);
+/* أزرار عامة */
+.btn {
+    display: inline-block;
+    border: none;
+    background-color: var(--gris-claro);
+    padding: 0.8rem 1.8rem;
+    color: var(--blanco);
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    transition: 0.2s;
 }
-
-/**Utilidades**/
-
-.text-center{
-    text-align: center;
-}
-
-.text-primary{
-    color: var(--Primario);
-}
-.text-white{
+.btn:hover {
+    background-color: var(--Primario);
     color: var(--blanco);
 }
 
-.seccion{
-    padding: 5rem 0;
+.boton-primario {
+    background: linear-gradient(135deg, var(--Primario-hover), var(--Primario));
+    color: var(--blanco);
 }
 
-
-.header{
-    height: 50rem;
-    background: #000;
-    padding: 0;
+/* ==========================================
+   الهيدر وشريط التنقل ولوغو النقابة
+========================================== */
+.site-navbar {
+    background: var(--negro);
+    border-bottom: 1px solid var(--gris-claro);
+    padding: 0.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo{
+.navegacion {
     display: flex;
     flex-direction: column;
-    width: 5rem;
-    margin: 0;
-    padding: 0;
-    gap: 5rem;
     align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
-    .logo{
+    .navegacion {
         flex-direction: row;
+        padding: 0.5rem 0;
     }
 }
 
-.logo img{
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.logo form input[type="search"]{
-    border: none;
-    padding: .5rem 1rem;
-    border-radius: 2px;
-    outline: none;
-    background-color: var(--gris-claro);
-    width: 20rem;
-
-}
-
-/**Navegacion**/
-
-.navegacion{
-    display: flex;
+/* لوغو النقابة الناري */
+.site-logo {
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
-    background: var(--negro);
-    width: 100%;
-    padding: 1rem 5rem;
+    text-decoration: none;
+    line-height: 1;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
 }
-
-.navegacion a{
-    color: var(--gris-claro);
+.site-logo:hover {
+    transform: scale(1.03);
+}
+.site-logo .logo-ar {
+    font-family: 'Changa', sans-serif;
+    font-size: 3.6rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #ff7a59 0%, #ff4b2b 45%, #c01e1e 80%, #202020 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 2px 0px #000) drop-shadow(0px 0px 8px rgba(255, 75, 43, 0.45));
+}
+.site-logo .logo-en {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #888;
+    margin-top: -2px;
     text-transform: uppercase;
 }
 
-.menu ul{
+/* الروابط والقائمة العلوية */
+.enlaces {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.menu ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+.menu a {
+    color: #ccc;
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+.menu a:hover,
+.current_page_item a {
+    color: var(--Primario) !important;
+}
+.current_page_item a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--Primario);
 }
 
-.menu li{
-    text-align: center;
+/* زر وقائمة النشر المنسدلة */
+.publish-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.btn-publish-trigger {
+    background: linear-gradient(135deg, var(--Primario-hover), var(--Primario));
+    color: var(--blanco);
+    border: none;
+    padding: 0.7rem 1.6rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(255, 75, 43, 0.35);
+    font-family: var(--fuente-principal);
+}
+.publish-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    min-width: 17rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    z-index: 100;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+.publish-dropdown:hover .publish-menu {
+    display: block;
+}
+.publish-menu a {
+    display: block;
+    padding: 1rem 1.4rem;
+    color: #eee;
+    font-size: 1.3rem;
+    border-bottom: 1px solid var(--gris-claro);
+    text-align: right;
+}
+.publish-menu a:hover {
+    background: var(--Primario);
+    color: var(--blanco);
 }
 
-.current_page_item a{
-    color: var(--blanco)!important;
+/* ==========================================
+   سلايدر الحلقات في الصفحة الرئيسية
+========================================== */
+.header-slider {
+    width: 100%;
+    background: var(--negro);
+    overflow: hidden;
+    position: relative;
+}
+.recents-slider {
+    display: flex;
+}
+.recents-slider .swiper-slide {
+    position: relative;
+}
+.slide-item {
+    display: block;
+    position: relative;
+    height: 38rem;
+    overflow: hidden;
+}
+.slide-thumb img {
+    width: 100%;
+    height: 38rem;
+    object-fit: cover;
+}
+.slide-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    padding: 3rem 2rem 1.5rem 2rem;
+}
+.slide-title {
+    color: var(--blanco);
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-
-
-@media (min-width: 768px) {
-    .navegacion{
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .menu li{
-        position: relative;
-    }
-    
-
-    .current_page_item::before{
-        position: absolute;
-        content: '';
-        border-bottom: 2px solid var(--Primario);
-        width: 100%;
-        bottom: .5rem;
-        left: 0;
-    }
-
-    .menu ul{
-        flex-direction: row;
-        align-items: center;
-        text-align: center;
-        gap: 3rem;
-    }
+/* ==========================================
+   صفحة مشاهدة الحلقة (Player & Servers)
+========================================== */
+.episode-view {
+    padding: 3rem 0;
+}
+.episode-main-title {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    border-right: 4px solid var(--Primario);
+    padding-right: 1.2rem;
+}
+.watch-container {
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    border-radius: 0.8rem;
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+}
+.servers-nav-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gris-claro);
+    padding-bottom: 1rem;
+}
+.servers-nav-wrap .lbl {
+    font-weight: 700;
+    color: var(--Primario);
+    font-size: 1.5rem;
+}
+.server-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+.btn-server-item {
+    background: var(--gris-oscuro);
+    color: #ccc;
+    border: 1px solid var(--gris-claro);
+    padding: 0.6rem 1.4rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1.3rem;
+    transition: 0.2s;
+}
+.btn-server-item.active,
+.btn-server-item:hover {
+    background: var(--Primario);
+    color: var(--blanco);
+    border-color: var(--Primario);
+}
+.player-box iframe {
+    width: 100%;
+    min-height: 35rem;
+    height: 55rem;
+    background: #000;
+    border-radius: 0.6rem;
+    border: none;
 }
 
-
-
-/**Estilos de las cards**/
-
-.cap_list_grid{
-    margin-top: 4rem;
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(
-            130px
-            ,1fr
-        )
-    );
+/* قسم التحميل */
+.download-section-box {
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    border-radius: 0.8rem;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+.dl-heading {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--blanco);
+}
+.download-links-grid {
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
-@media (max-width: 992px){
-    .cap_list_grid{
-        grid-template-columns: repeat(2, 2fr)!important;
-    }
-}
-@media (min-width: 760px) {
-    .cap_list_grid{
-        grid-template-columns: repeat(4, 2fr);
-    }
-}
-
-
-.card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    min-width: 9rem;
-    width: 100%;
-}
-.card img{
-    width: 15rem;
-    height: 25rem;
-    object-fit: cover;
-    border-radius: .5rem;
-}
-
-.card_title{
-    opacity: 1;
-    bottom: 5rem;
-    text-align: center;
-    color: var(--blanco);
+.btn-dl-badge {
+    background: var(--gris-oscuro);
+    color: #00d2d3;
+    padding: 1rem 1.8rem;
+    border-radius: 0.6rem;
+    font-weight: bold;
     font-size: 1.4rem;
-    padding: .3rem;
+    border: 1px solid #2f3542;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-dl-badge:hover {
+    background: var(--Primario);
+    color: var(--blanco);
+    border-color: var(--Primario);
+}
+.btn-back-anime {
+    color: var(--Primario);
+    font-weight: 700;
+    display: inline-block;
+    font-size: 1.5rem;
 }
 
+/* ==========================================
+   صفحة الأنمي (Single Series)
+========================================== */
+.anime-single-container {
+    padding: 4rem 0;
+}
+.anime-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    border-radius: 0.8rem;
+    padding: 2.5rem;
+    margin-bottom: 4rem;
+}
 @media (min-width: 768px) {
-
-    .card img{
-        width: 100%;
-        height: 30rem;
-        object-fit: cover;
-        border-radius: .5rem;
+    .anime-header {
+        grid-template-columns: 26rem 1fr;
     }
-
-    .card .contenido{
-        top: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgb(0 0 0 / .75);
-        border-radius: .5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: var(--blanco);
-        opacity: 0;
-        transition: .3s ease-in-out;
-    }
-
-    .card:hover .contenido{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 1;
-    }
-
 }
-
-.widget{
+.anime-poster img {
+    width: 100%;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.anime-details h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+.anime-meta {
     display: flex;
-    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.badge {
+    padding: 0.4rem 1.2rem;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.badge.status {
+    background: #27ae60;
+    color: #fff;
+}
+.badge.team {
+    background: var(--Primario);
+    color: #fff;
+}
+.anime-story h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--Primario);
+}
+.story-content {
+    color: #ccc;
+    font-size: 1.5rem;
+    line-height: 1.9;
 }
 
-@media (min-width:768px) {
-    .con-sidebar{
-        display: grid;
-        grid-template-columns: 4fr 1fr;
-        gap: 4rem;
-    }
+/* شبكة الحلقات داخل صفحة الأنمي */
+.episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
-
-
-.sidebar_class{
-    display: flex;
-    flex-direction: column;
-    margin: 2rem 0;
-    padding: 2rem 1rem;
-    background: var(--gris-claro);
-    width: 35rem;
-    height: 60rem;
-    border-radius: .5rem;
+.episode-card {
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    border-radius: 0.6rem;
+    overflow: hidden;
+    transition: 0.2s;
 }
-.sidebar_class h4{
-    margin: 1rem 0;
+.episode-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--Primario);
 }
-
-.sidebar_class ul{
-    overflow-y: scroll;
+.episode-thumb {
+    height: 12rem;
+    background: #000;
 }
-
-.sidebar_class li .card-entrada{
-    display: flex;
+.episode-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.episode-name {
+    font-size: 1.3rem;
     padding: 1rem;
-    gap: 2rem;
-    flex-direction: row;
-    background-color: var(--gris-oscuro);
-    margin: 1rem 0;
-    border-radius: .5rem;
+    text-align: center;
+    margin: 0;
+    color: #eee;
+}
+
+/* ==========================================
+   نماذج النشر (إضافة عمل ونشر حلقة)
+========================================== */
+.sr-form-wrapper {
+    max-width: 85rem;
+    margin: 4rem auto;
+    background: var(--gris-medio);
+    border: 1px solid var(--gris-claro);
+    padding: 3rem;
+    border-radius: 0.8rem;
+}
+.sr-subtitle {
+    color: var(--texto-secundario);
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+.sr-box {
+    border: 1px solid var(--gris-claro);
+    border-radius: 0.6rem;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    background: #141517;
+}
+.sr-box legend {
+    color: var(--Primario);
+    font-weight: 700;
+    padding: 0 1rem;
+    font-size: 1.6rem;
+}
+.highlight-box {
+    border-color: var(--Primario);
+}
+.sr-row {
+    margin-bottom: 1.5rem;
+}
+.sr-row label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+.sr-input, .sr-textarea {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: #0d0e10;
+    border: 1px solid #353840;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-family: var(--fuente-principal);
+    font-size: 1.4rem;
+}
+.sr-input:focus, .sr-textarea:focus {
+    border-color: var(--Primario);
+    outline: none;
+}
+.sr-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+}
+.sr-sub-box {
+    background: #0f1012;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    border: 1px solid #22242a;
+}
+.sr-sub-box h4 {
+    color: var(--Primario);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.sr-custom-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.btn-add-other {
+    background: transparent;
+    border: 1px dashed var(--Primario);
+    color: var(--Primario);
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    font-family: var(--fuente-principal);
+}
+.btn-add-other:hover {
+    background: rgba(255, 75, 43, 0.1);
+}
+.btn-remove-row {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 0 1.4rem;
+    border-radius: 0.4rem;
     cursor: pointer;
 }
-
-.sidebar_class li .card-entrada h5{
-    margin: 0;
-    font-weight: 300;
-}
-
-.imagen_sidebar{
-    overflow: hidden;
-}
-.imagen_sidebar img{
-    height: 100%;
-    width: 10rem;
-    object-fit: cover;
-    border-radius: .5rem;
-}
-
-/**Carrusel**/
-
-.carrusel{
-    background: var(--gris-oscuro);
-    max-height: 20rem;
-    padding: .5rem;
-    overflow: hidden!important;
-}
-
-.lista-carrusel{
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    height: 100%;
-
-}
-
-.card_carrusel{
-    height: auto;
-    width: 10rem;
-    border-radius: .5rem;
-    overflow: hidden;
-}
-
-.card_carrusel img{
+.btn-primary-submit {
+    background: linear-gradient(135deg, var(--Primario-hover), var(--Primario));
+    color: #fff;
+    border: none;
+    padding: 1.4rem;
     width: 100%;
-    height: 20rem;
-    object-fit: cover;
+    border-radius: 0.6rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--fuente-principal);
+    margin-top: 1rem;
 }
 
-@media (min-width:768px){
-    .lista-carrusel{
-        gap: 2rem;
-    }
-    .card_carrusel{
-        height: 15rem;
-        width: 25rem!important;
-        border-radius: .5rem;
-        overflow: hidden;
-    }
-
-    .carrusel{
-        background: var(--gris-oscuro);
-        max-height: 20rem;
-        padding: 1rem  4rem 2rem 4rem;
-        overflow: hidden!important;
-    }
+/* التنبيهات */
+.sr-alert {
+    padding: 1.2rem 1.6rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
 }
+.sr-success { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid #2ecc71; }
+.sr-error   { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid #e74c3c; }
+.sr-warning { background: rgba(241, 196, 15, 0.15); color: #f1c40f; border: 1px solid #f1c40f; }
 
-/** slider capitulos recientes **/
-.recents-slider{
-    position: relative;
-    display: flex;
-    flex-direction: row;
+/* ==========================================
+   الفوتر
+========================================== */
+.footer {
+    background: var(--negro);
+    border-top: 1px solid var(--gris-claro);
+    padding: 3rem 0;
+    margin-top: 6rem;
 }
-
-.recents-slider img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.footer .enlaces {
+    justify-content: center;
+    margin-bottom: 1.5rem;
 }
-
-.recents-slider h4{
-    font-size: 2.5rem;
-    position: absolute;
-    margin: 0;
-    bottom: 10rem;
-    left: 3vh;
-    z-index: 34;
-}
-
-.recents-slider li::before{
-    position: absolute;
-    content: '';
-    background: rgba(19, 19, 19, 0.432);
-    width: 100%;
-    display: block;
-    height: 15rem;
-    z-index: 3;
-    bottom: 0;
-}
-
-@media (min-width:768px){
-    .recents-slider{
-    }
-
-}
-
-/**capitulos**/
-
-.server-nav{
-    background-color: #0B0B0B;
+.copyright {
+    color: var(--texto-secundario);
+    font-size: 1.3rem;
 }
